@@ -251,13 +251,6 @@ def update_changelog_and_version():
 
     release_type, release_contents = parse_release_file()
 
-    new_version = list(__version_info__)
-    bump = VALID_RELEASE_TYPES.index(release_type)
-
-    if release_type not in VALID_RELEASE_TYPES:
-        print(f'Release {release_type} not supported')
-        sys.exit(1)
-
     new_version = bump_poetry_version(release_type)
     new_version_string = '.'.join(map(str, new_version))
 
@@ -297,7 +290,7 @@ def update_for_pending_release():
     update_changelog_and_version()
 
     git('rm', RELEASE_FILE)
-    git('add', CHANGELOG_FILE, VERSION_FILE)
+    git('add', CHANGELOG_FILE, PROJECT_TOML)
 
     git(
         'commit',
