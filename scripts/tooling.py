@@ -156,13 +156,13 @@ def git(*args):
 
 def create_tag_and_push():
     assert __version__ not in tags()
-    git('config', 'user.name', 'Travis CI on behalf of Wellcome')
-    git('config', 'user.email', 'wellcomedigitalplatform@wellcome.ac.uk')
+    git('config', 'user.name', 'Marco Acierno')
+    git('config', 'user.email', 'marcoaciernoemail@gmail.com')
     git('config', 'core.sshCommand', 'ssh -i deploy_key')
-    git(
-        'remote', 'add', 'ssh-origin',
-        'git@github.com:wellcometrust/aws_utils.git'
-    )
+    # git(
+    #     'remote', 'add', 'ssh-origin',
+    #     'git@github.com:wellcometrust/aws_utils.git'
+    # )
     git('tag', __version__)
 
     subprocess.check_call(['git', 'push', 'ssh-origin', 'HEAD:master'])
@@ -285,7 +285,7 @@ def update_changelog_and_version():
 
 
 def update_for_pending_release():
-    git('config', 'user.name', 'Strawberry Deployer')
+    git('config', 'user.name', 'Marco Acierno')
     git('config', 'user.email', 'marcoaciernoemail@gmail.com')
     update_changelog_and_version()
 
