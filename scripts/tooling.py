@@ -24,6 +24,20 @@ import subprocess
 from datetime import datetime, timedelta
 
 
+POETRY_DUMP_VERSION_OUTPUT = re.compile(r'Bumping version from \d+\.\d+\.\d+ to (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)')
+def bump_poetry_version(type):
+    output = subprocess.check_output([
+        'poetry', 'version', type
+    ]).decode('ascii').strip()
+
+    match = POETRY_DUMP_VERSION_OUTPUT.match(output)
+
+    if not match:
+        return False
+
+    return match.group('major'), match.group('minor'), match.group('patch')
+
+
 def current_branch():
     return subprocess.check_output([
         'git', 'rev-parse', '--abbrev-ref', 'HEAD'
@@ -59,11 +73,11 @@ with open(PROJECT_TOML) as o:
 
         if match:
             __version_info__ = (
-                match.group('major'),
-                match.group('minor'),
-                match.group('patch'),
+                int(match.group('major')),
+                int(match.group('minor')),
+                int(match.group('patch')),
             )
-            __version__ = '.'.join(__version_info__)
+            __version__ = '.'.join(map(str, __version_info__))
 
 assert __version__ is not None
 assert __version_info__ is not None
@@ -239,19 +253,18 @@ def update_changelog_and_version():
 
     new_version = list(__version_info__)
     bump = VALID_RELEASE_TYPES.index(release_type)
-    new_version[bump] += 1
-    for i in range(bump + 1, len(new_version)):
-        new_version[i] = 0
-    new_version = tuple(new_version)
+
+    if release_type not in VALID_RELEASE_TYPES:
+        print(f'Release {release_type} not supported')
+        sys.exit(1)
+
+    new_version = bump_poetry_version(release_type)
     new_version_string = '.'.join(map(str, new_version))
+
+    print('new_version', new_version)
 
     __version_info__ = new_version
     __version__ = new_version_string
-
-    with open(PROJECT_TOML) as f:
-        for line in f:
-            success = line.sub(VERSION_REGEX, f'version = "{__version__}"')
-            print('success?', success)
 
     now = datetime.utcnow()
 

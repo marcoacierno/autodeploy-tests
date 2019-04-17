@@ -54,13 +54,13 @@ if __name__ == '__main__':
         print('Updating changelog and version')
         tools.update_for_pending_release()
 
-    print('Building an sdist...')
+    print('Building the package...')
 
     if os.path.exists(DIST):
         shutil.rmtree(DIST)
 
     subprocess.check_call([
-        sys.executable, 'setup.py', 'sdist', '--dist-dir', DIST,
+        'poetry', 'build'
     ])
 
     if not on_master:
