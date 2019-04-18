@@ -93,7 +93,7 @@ if __name__ == '__main__':
 
     # print('Release seems good. Pushing to GitHub now.')
 
-    # tools.create_tag_and_push()
+    tools.create_tag_and_push()
 
     # print('Now uploading to pypi.')
 

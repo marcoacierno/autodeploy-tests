@@ -158,15 +158,15 @@ def create_tag_and_push():
     assert __version__ not in tags()
     git('config', 'user.name', 'Marco Acierno')
     git('config', 'user.email', 'marcoaciernoemail@gmail.com')
-    git('config', 'core.sshCommand', 'ssh -i deploy_key')
+    # git('config', 'core.sshCommand', 'ssh -i deploy_key')
     # git(
     #     'remote', 'add', 'ssh-origin',
     #     'git@github.com:wellcometrust/aws_utils.git'
     # )
     git('tag', __version__)
 
-    subprocess.check_call(['git', 'push', 'ssh-origin', 'HEAD:master'])
-    subprocess.check_call(['git', 'push', 'ssh-origin', '--tags'])
+    subprocess.check_call(['git', 'push', 'origin', 'HEAD:master'])
+    subprocess.check_call(['git', 'push', 'origin', '--tags'])
 
 
 def modified_files():
