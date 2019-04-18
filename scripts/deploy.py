@@ -71,9 +71,9 @@ if __name__ == '__main__':
         print('Not deploying due to no release')
         sys.exit(0)
 
-    if os.environ.get('TRAVIS_SECURE_ENV_VARS', None) != 'true':
-        print("But we don't have the keys to do it")
-        sys.exit(1)
+    # if os.environ.get('TRAVIS_SECURE_ENV_VARS', None) != 'true':
+    #     print("But we don't have the keys to do it")
+    #     sys.exit(1)
 
     # print('Decrypting secrets')
 
