@@ -9,7 +9,11 @@ jobs:
             - "54:7e:55:49:d3:5b:67:d6:12:d0:a0:51:ed:d7:81:8c"
       - checkout
       - run: python scripts/deploy.py
+
 workflows:
   Deploy:
     jobs:
-      - deploy
+      - deploy:
+        filters:
+          branches:
+            only: master
