@@ -13,3 +13,6 @@ workflows:
   Deploy:
     jobs:
       - deploy
+        branches:
+          only:
+            - master
