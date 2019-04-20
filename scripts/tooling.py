@@ -15,8 +15,6 @@
 #
 # END HEADER
 
-from __future__ import division, print_function, absolute_import
-
 import os
 import re
 import sys
@@ -253,8 +251,6 @@ def update_changelog_and_version():
 
     new_version = bump_poetry_version(release_type)
     new_version_string = '.'.join(map(str, new_version))
-
-    print('new_version', new_version)
 
     __version_info__ = new_version
     __version__ = new_version_string
