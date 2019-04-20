@@ -95,7 +95,7 @@ if __name__ == '__main__':
 
     tools.create_tag_and_push()
 
-    # print('Now uploading to pypi.')
+    print('Now uploading to pypi.')
 
     # subprocess.check_call([
     #     sys.executable, '-m', 'twine', 'upload',
