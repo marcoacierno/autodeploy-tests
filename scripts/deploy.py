@@ -17,8 +17,6 @@
 #
 # END HEADER
 
-from __future__ import division, print_function, absolute_import
-
 import os
 import sys
 import shutil
@@ -30,9 +28,6 @@ sys.path.append(os.path.dirname(__file__))  # noqa
 
 
 DIST = os.path.join(tools.ROOT, 'dist')
-
-
-PENDING_STATUS = ('started', 'created')
 
 
 if __name__ == '__main__':
@@ -50,6 +45,14 @@ if __name__ == '__main__':
     on_master = tools.is_ancestor(HEAD, MASTER)
     has_release = tools.has_release()
 
+    if not on_master:
+        print('Not deploying due to not being on master')
+        sys.exit(0)
+
+    if not has_release:
+        print('Not deploying due to no release')
+        sys.exit(0)
+
     if has_release:
         print('Updating changelog and version')
         tools.update_for_pending_release()
@@ -63,45 +66,17 @@ if __name__ == '__main__':
         'poetry', 'build'
     ])
 
-    if not on_master:
-        print('Not deploying due to not being on master')
-        sys.exit(0)
-
-    if not has_release:
-        print('Not deploying due to no release')
-        sys.exit(0)
-
-    # if os.environ.get('TRAVIS_SECURE_ENV_VARS', None) != 'true':
-    #     print("But we don't have the keys to do it")
-    #     sys.exit(1)
-
-    # print('Decrypting secrets')
-
-    # # We'd normally avoid the use of shell=True, but this is more or less
-    # # intended as an opaque string that was given to us by Travis that happens
-    # # to be a shell command that we run, and there are a number of good reasons
-    # # this particular instance is harmless and would be high effort to
-    # # convert (principally: Lack of programmatic generation of the string and
-    # # extensive use of environment variables in it), so we're making an
-    # # exception here.
-    # subprocess.check_call(
-    #     'openssl aes-256-cbc -K $encrypted_83630750896a_key '
-    #     '-iv $encrypted_83630750896a_iv -in deploy_key.enc -out deploy_key -d',
-    #     shell=True
-    # )
-    # subprocess.check_call(['chmod', '400', 'deploy_key'])
-
-    # print('Release seems good. Pushing to GitHub now.')
+    print('Release seems good. Pushing to GitHub now.')
 
     tools.create_tag_and_push()
 
     print('Now uploading to pypi.')
 
-    # subprocess.check_call([
-    #     sys.executable, '-m', 'twine', 'upload',
-    #     '--username', os.environ['PYPI_USERNAME'],
-    #     '--password', os.environ['PYPI_PASSWORD'],
-    #     os.path.join(DIST, '*'),
-    # ])
+    subprocess.check_call([
+        'poetry',
+        'publish',
+        '--username', os.environ['PYPI_USERNAME'],
+        '--password', os.environ['PYPI_PASSWORD']
+    ])
 
     sys.exit(0)
