@@ -154,13 +154,7 @@ def git(*args):
 
 def create_tag_and_push():
     assert __version__ not in tags()
-    git('config', 'user.name', 'Marco Acierno')
-    git('config', 'user.email', 'marcoaciernoemail@gmail.com')
-    # git('config', 'core.sshCommand', 'ssh -i deploy_key')
-    # git(
-    #     'remote', 'add', 'ssh-origin',
-    #     'git@github.com:wellcometrust/aws_utils.git'
-    # )
+    configure_git()
     git('tag', __version__)
 
     subprocess.check_call(['git', 'push', 'origin', 'HEAD:master'])
@@ -281,8 +275,7 @@ def update_changelog_and_version():
 
 
 def update_for_pending_release():
-    git('config', 'user.name', 'Marco Acierno')
-    git('config', 'user.email', 'marcoaciernoemail@gmail.com')
+    configure_git()
     update_changelog_and_version()
 
     git('rm', RELEASE_FILE)
@@ -292,3 +285,8 @@ def update_for_pending_release():
         'commit',
         '-m', 'Deploy 🍓 %s' % (__version__,)
     )
+
+
+def configure_git():
+    git('config', 'user.name', 'Marco Acierno')
+    git('config', 'user.email', 'marcoaciernoemail@gmail.com')
