@@ -25,7 +25,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
         type_ = match.group(1)
-        release_changelog = [l.strip() for f.readlines() if l]
+        release_changelog = [l.strip() for l in f.readlines() if l]
 
     output = run_process(['poetry', 'version', type_])
     version_match = POETRY_DUMP_VERSION_OUTPUT.match(output)
