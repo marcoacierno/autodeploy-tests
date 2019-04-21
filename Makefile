@@ -6,3 +6,6 @@ tag-release:
 
 publish-changes:
 	python scripts2/publish_changes.py
+
+check-has-release:
+	python scripts2/has_release.py
