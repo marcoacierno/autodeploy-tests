@@ -10,10 +10,10 @@ jobs:
       - checkout
       - run: make check-has-release
       - run: make install-deploy-deps
+      - run: poetry build
       - run: make prepare-release
       - run: make tag-release
       - run: make publish-changes
-      - run: poetry build
       - run: poetry publish
 
 workflows:
