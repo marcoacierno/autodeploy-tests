@@ -2,6 +2,17 @@ CHANGELOG
 =========
 
 ------------------
+0.6.1 - 2019-04-21
+------------------
+
+
+
+test new relaaease
+
+- [] should create github release
+- [] do normal stuff without failing
+
+------------------
 0.6.0 - 2019-04-21
 ------------------
 
