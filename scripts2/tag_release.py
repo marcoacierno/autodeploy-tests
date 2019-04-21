@@ -4,10 +4,11 @@ import re
 
 sys.path.append(os.path.dirname(__file__))  # noqa
 
-from base import run_process, check_exit_code, get_project_version
+from base import run_process, check_exit_code, get_project_version, configure_git
 
 
 if __name__ == '__main__':
+    configure_git()
     version = get_project_version()
 
     if not version:

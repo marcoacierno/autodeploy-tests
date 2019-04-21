@@ -13,6 +13,9 @@ PROJECT_TOML_FILE = os.path.join(ROOT, PROJECT_TOML_FILE_NAME)
 CHANGELOG_FILE_NAME = 'CHANGELOG.md'
 CHANGELOG_FILE = os.path.join(ROOT, CHANGELOG_FILE_NAME)
 
+GIT_USERNAME = 'Marco Acierno'
+GIT_EMAIL = 'marcoaciernoemail@gmail.com'
+
 
 def run_process(popenargs):
     return subprocess.check_output(popenargs).decode('ascii').strip()
@@ -44,3 +47,7 @@ def get_project_version():
                 return f'{int(match.group("major"))}.{int(match.group("minor"))}.{int(match.group("patch"))}'
 
     return None
+
+def configure_git():
+    git(['config', 'user.name', GIT_USERNAME])
+    git(['config', 'user.email', GIT_EMAIL])
