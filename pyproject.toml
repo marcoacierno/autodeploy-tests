@@ -8,6 +8,7 @@ authors = ["Marco Acierno <marcoaciernoemail@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.7"
 django = "^2.2"
+black = {version = "^18.3-alpha.0",allows-prereleases = true}
 
 [tool.poetry.dev-dependencies]
 
