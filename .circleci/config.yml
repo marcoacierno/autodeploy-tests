@@ -12,7 +12,7 @@ jobs:
       - run: make install-deploy-deps
       - run: poetry build
       - run: make prepare-release
-      - run: make tag-release
+      - run: make create-github-release
       - run: make publish-changes
       - run: poetry publish
 
