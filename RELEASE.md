@@ -1,3 +1,3 @@
-RELEASE_TYPE: patch
+Release type: patch
 
 hello
