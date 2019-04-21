@@ -22,7 +22,7 @@ if __name__ == '__main__':
     ]) == 0
 
     if tag_exists:
-        return
+        sys.exit(0)
 
     run_process([
         'git', 'tag', version
