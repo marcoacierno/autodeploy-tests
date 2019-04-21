@@ -5,27 +5,14 @@ sys.path.append(os.path.dirname(__file__))  # noqa
 
 from datetime import datetime
 
-from base import run_process, RELEASE_FILE, CHANGELOG_FILE
+from base import run_process, get_release_info, RELEASE_FILE, CHANGELOG_FILE
 
 
 if __name__ == '__main__':
-    RELEASE_TYPE_REGEX = re.compile(r'^[Rr]elease [Tt]ype: (major|minor|patch)$')
     POETRY_DUMP_VERSION_OUTPUT = re.compile(r'Bumping version from \d+\.\d+\.\d+ to (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)')
     CHANGELOG_HEADER_SEPARATOR = '========='
 
-    with open(RELEASE_FILE, 'r') as f:
-        line = f.readline()
-        match = RELEASE_TYPE_REGEX.match(line)
-
-        if not match:
-            print(
-                'The file RELEASE.md should start with `Release type` '
-                'and specify one of the following values: major, minor or patch.'
-            )
-            sys.exit(1)
-
-        type_ = match.group(1)
-        release_changelog = [l.strip() for l in f.readlines() if l]
+    type_, release_changelog = get_release_info()
 
     output = run_process(['poetry', 'version', type_])
     version_match = POETRY_DUMP_VERSION_OUTPUT.match(output)

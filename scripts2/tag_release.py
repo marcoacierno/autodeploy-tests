@@ -4,7 +4,9 @@ import re
 
 sys.path.append(os.path.dirname(__file__))  # noqa
 
-from base import run_process, check_exit_code, get_project_version, configure_git
+from github_release import gh_release_create
+
+from base import run_process, check_exit_code, get_project_version, configure_git, PROJECT_NAME
 
 
 if __name__ == '__main__':
@@ -19,11 +21,21 @@ if __name__ == '__main__':
         f'git show-ref --tags --quiet --verify -- "refs/tags/{version}"'
     ]) == 0
 
-    if not tag_exists:
-        run_process([
-            'git', 'tag', version
-        ])
+    if tag_exists:
+        return
 
-        run_process([
-            'git', 'push', '--tags'
-        ])
+    run_process([
+        'git', 'tag', version
+    ])
+
+    run_process([
+        'git', 'push', '--tags'
+    ])
+
+    gh_release_create(
+        f"{os.environ['CIRCLE_PROJECT_USERNAME']}/{os.environ['CIRCLE_PROJECT_REPONAME']}",
+        version,
+        publish=True,
+        name=f"{PROJECT_NAME} {version}",
+        asset_pattern="dist/*"
+    )

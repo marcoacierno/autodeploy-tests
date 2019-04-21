@@ -12,22 +12,9 @@ if __name__ == '__main__':
 
     version = get_project_version()
 
-    git([
-        'add', PROJECT_TOML_FILE_NAME,
-    ])
+    git(['add', PROJECT_TOML_FILE_NAME])
+    git(['add', CHANGELOG_FILE_NAME])
+    git(['rm',  RELEASE_FILE_NAME])
 
-    git([
-        'add', CHANGELOG_FILE_NAME,
-    ])
-
-    git([
-        'rm', RELEASE_FILE_NAME,
-    ])
-
-    git([
-        'commit', '-m', f'Release 🍓 {version}'
-    ])
-
-    git([
-        'push'
-    ])
+    git(['commit', '-m', f'Release 🍓 {version}'])
+    git(['push', 'origin', 'HEAD'])
