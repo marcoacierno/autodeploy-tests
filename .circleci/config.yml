@@ -10,8 +10,8 @@ jobs:
       - checkout
       - run: make check-has-release
       - run: make install-deploy-deps
-      - run: poetry build
       - run: make prepare-release
+      - run: poetry build
       - run: make create-github-release
       - run: make publish-changes
       - run: poetry publish
