@@ -11,4 +11,4 @@ check-has-release:
 	python scripts2/has_release.py
 
 install-deploy-deps:
-	pip install githubrelease
+	pip install --user githubrelease
