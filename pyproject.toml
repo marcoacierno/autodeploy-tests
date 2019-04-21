@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "autodeploy-tests"
 packages = [ { include = "autodeploy-tests" } ]
-version = "0.6.3"
+version = "0.6.4"
 description = ""
 authors = ["Marco Acierno <marcoaciernoemail@gmail.com>"]
 

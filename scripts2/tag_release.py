@@ -21,16 +21,14 @@ if __name__ == '__main__':
         f'git show-ref --tags --quiet --verify -- "refs/tags/{version}"'
     ]) == 0
 
-    if tag_exists:
-        sys.exit(0)
+    if not tag_exists:
+        run_process([
+            'git', 'tag', version
+        ])
 
-    run_process([
-        'git', 'tag', version
-    ])
-
-    run_process([
-        'git', 'push', '--tags'
-    ])
+        run_process([
+            'git', 'push', '--tags'
+        ])
 
     _, changelog = get_release_info()
 
