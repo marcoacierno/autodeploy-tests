@@ -26,16 +26,16 @@ if __name__ == '__main__':
         'add', CHANGELOG_FILE_NAME,
     ])
 
-    # run_process([
-    #     'rm', RELEASE_FILE_NAME,
-    # ])
-
-    # git([
-    #     'add', RELEASE_FILE_NAME,
-    # ])
+    run_process([
+        'rm', RELEASE_FILE_NAME,
+    ])
 
     git([
-        'commit', '-m', f'"Release 🍓 {version}"'
+        'add', RELEASE_FILE_NAME,
+    ])
+
+    git([
+        'commit', '-m', f'Release 🍓 {version}'
     ])
 
     git([
