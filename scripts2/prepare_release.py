@@ -46,7 +46,6 @@ if __name__ == "__main__":
 
         new_version_header = f"{new_version} - {current_date}"
 
-        f.write(f"\n{'-' * len(new_version_header)}\n")
         f.write(f"{new_version_header}\n")
         f.write(f"{'-' * len(new_version_header)}\n\n")
 

@@ -69,7 +69,8 @@ def get_release_info():
             sys.exit(1)
 
         type_ = match.group(1)
-        changelog = [l.strip() for l in f.readlines() if l]
+        # duplicate .strip() :/ use PEP 572 when python 3.8 is out? (https://www.python.org/dev/peps/pep-0572/)
+        changelog = [l.strip() for l in f.readlines() if l.strip()]
 
     return type_, changelog
 
