@@ -1,5 +1,6 @@
 import os
 import subprocess
+import sys
 import re
 
 ROOT = (
@@ -7,7 +8,7 @@ ROOT = (
     .decode("ascii")
     .strip()
 )
-PROJECT_NAME = "Autodeploy Tests"
+PROJECT_NAME = "Strawberry"
 
 # Files configuration
 
@@ -40,16 +41,14 @@ def check_exit_code(popenargs):
 
 
 def get_project_version():
-    VERSION_REGEX = re.compile(
-        r"^version\s*=\s*\"(?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)\"$"
-    )
+    VERSION_REGEX = re.compile(r"^version\s*=\s*\"(?P<version>\d+\.\d+\.\d+)\"$")
 
     with open(PROJECT_TOML_FILE) as f:
         for line in f:
             match = VERSION_REGEX.match(line)
 
             if match:
-                return f'{int(match.group("major"))}.{int(match.group("minor"))}.{int(match.group("patch"))}'
+                return match.group('version')
 
     return None
 
@@ -69,7 +68,8 @@ def get_release_info():
             sys.exit(1)
 
         type_ = match.group(1)
-        # duplicate .strip() :/ use PEP 572 when python 3.8 is out? (https://www.python.org/dev/peps/pep-0572/)
+        # duplicate .strip() :/ use PEP 572 when python 3.8 is out?
+        # (https://www.python.org/dev/peps/pep-0572/)
         changelog = [l.strip() for l in f.readlines() if l.strip()]
 
     return type_, changelog

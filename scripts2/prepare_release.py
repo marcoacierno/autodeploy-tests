@@ -6,12 +6,12 @@ sys.path.append(os.path.dirname(__file__))  # noqa
 
 from datetime import datetime
 
-from base import run_process, get_release_info, RELEASE_FILE, CHANGELOG_FILE
+from base import run_process, get_release_info, CHANGELOG_FILE
 
 
 if __name__ == "__main__":
     POETRY_DUMP_VERSION_OUTPUT = re.compile(
-        r"Bumping version from \d+\.\d+\.\d+ to (?P<major>\d+)\.(?P<minor>\d+)\.(?P<patch>\d+)"
+        r"Bumping version from \d+\.\d+\.\d+ to (?P<version>\d+\.\d+\.\d+)"
     )
     CHANGELOG_HEADER_SEPARATOR = "========="
 
@@ -24,7 +24,7 @@ if __name__ == "__main__":
         print("Unable to bump the project version using poetry")
         sys.exit(1)
 
-    new_version = f"{version_match.group('major')}.{version_match.group('minor')}.{version_match.group('patch')}"
+    new_version = version_match.group('version')
     current_date = datetime.utcnow().strftime("%Y-%m-%d")
 
     old_changelog_data = ""
