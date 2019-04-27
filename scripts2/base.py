@@ -1,25 +1,26 @@
-import os
 import subprocess
 import sys
 import re
 
-ROOT = (
+from pathlib import Path
+
+ROOT = Path(
     subprocess.check_output(["git", "rev-parse", "--show-toplevel"])
     .decode("ascii")
     .strip()
 )
-PROJECT_NAME = "Strawberry"
+PROJECT_NAME = "yooo"
 
 # Files configuration
 
 RELEASE_FILE_NAME = "RELEASE.md"
-RELEASE_FILE = os.path.join(ROOT, RELEASE_FILE_NAME)
+RELEASE_FILE = ROOT / RELEASE_FILE_NAME
 
 PROJECT_TOML_FILE_NAME = "pyproject.toml"
-PROJECT_TOML_FILE = os.path.join(ROOT, PROJECT_TOML_FILE_NAME)
+PROJECT_TOML_FILE = ROOT / PROJECT_TOML_FILE_NAME
 
 CHANGELOG_FILE_NAME = "CHANGELOG.md"
-CHANGELOG_FILE = os.path.join(ROOT, CHANGELOG_FILE_NAME)
+CHANGELOG_FILE = ROOT / CHANGELOG_FILE_NAME
 
 # Git configuration
 
