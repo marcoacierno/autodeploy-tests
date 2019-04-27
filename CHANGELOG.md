@@ -1,6 +1,11 @@
 CHANGELOG
 =========
 
+0.9.3 - 2019-04-27
+------------------
+
+ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch ptch
+
 0.9.2 - 2019-04-24
 ------------------
 
